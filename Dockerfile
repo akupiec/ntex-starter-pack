@@ -1,24 +1,29 @@
 # Builder
-FROM rust:1.69.0-alpine3.17 as builder
-
-WORKDIR /app
+FROM rust:alpine as builder
 
 ## Install build dependencies
 RUN apk add alpine-sdk musl-dev build-base upx
+
+WORKDIR /app
 
 ## Copy source code
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 
 ## Build release binary
-RUN cargo build --release --target x86_64-unknown-linux-musl
+RUN cargo build --release
 ## Pack release binary with UPX (optional)
-RUN upx --best --lzma /app/target/x86_64-unknown-linux-musl/release/my-rest-api
+RUN upx --best --lzma /app/target/release/my-rest-api
 
 # Runtime
 FROM scratch
 
 ## Copy release binary from builder
-COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/my-rest-api /app
+COPY --from=builder /app/target/release/my-rest-api /app
+COPY --from=builder /usr/bin/wget /wget
+
+HEALTHCHECK CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
+
+EXPOSE 8080/tcp
 
 ENTRYPOINT ["/app"]
