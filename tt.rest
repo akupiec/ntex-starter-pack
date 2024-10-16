@@ -1,3 +1,0 @@
-PUT http://localhost:8080/todos/100
-###
-PUT http://localhost:8080/todos/99

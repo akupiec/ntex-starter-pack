@@ -19,7 +19,7 @@ Simple monorepo starter pack using fastest & smallest reasonable framework [(che
  - openapi (WIP)
  - custom error handling (Planned)
  - multiple log levels (Planned)
- - updated to date (Planned)
+ - updated to date
  - ORM & multi db (Planned)
  - user CRUD (Planned)
  - session login with oath id provider (Planned)
@@ -30,6 +30,8 @@ Simple monorepo starter pack using fastest & smallest reasonable framework [(che
  - generator for personalization of project ex:
    - removing logging
    - removing openapi
+ - implementing nicer wrappers for openAPI
 
 # Notes
+ - openAPI can be accessed by http://localhost:8080/explorer/
  - there is no https and there will not be, you will be using proxy anyway :) [ssh proxy tutorial on intranet!](https://www.youtube.com/watch?v=qlcVx-k-02E)
