@@ -11,7 +11,6 @@
 
 [//]: # ([s3]: https://github.com/Canop/broot/actions/workflows/tests.yml/badge.svg)
 [//]: # ([l3]: https://github.com/Canop/broot/actions/workflows/tests.yml)
-
 # Description
 
 Simple monorepo starter pack using fastest & smallest reasonable framework [(check current data here)](https://www.techempower.com/benchmarks)
