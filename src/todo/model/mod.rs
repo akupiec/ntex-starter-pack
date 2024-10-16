@@ -1,5 +1,5 @@
+use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
-use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, ToSchema)]
 pub struct Todo {

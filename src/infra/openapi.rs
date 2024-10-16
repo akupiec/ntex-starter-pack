@@ -1,27 +1,11 @@
-use crate::error::HttpError;
-use std::sync::Arc;
-
+use super::model::HttpError;
+use super::ApiDoc;
+use ntex::service::Identity;
 use ntex::util::Bytes;
 use ntex::web;
+use ntex::web::{DefaultError, Scope};
+use std::sync::Arc;
 use utoipa::OpenApi;
-
-use crate::models::todo::{Todo, TodoPartial};
-
-use super::todo;
-
-/// Main structure to generate OpenAPI documentation
-#[derive(OpenApi)]
-#[openapi(
-  paths(
-    todo::get_todos,
-    todo::create_todo,
-    todo::get_todo,
-    todo::update_todo,
-    todo::delete_todo,
-  ),
-  components(schemas(Todo, TodoPartial, HttpError))
-)]
-pub(crate) struct ApiDoc;
 
 #[web::get("/{tail}*")]
 async fn get_swagger(
@@ -34,9 +18,10 @@ async fn get_swagger(
     })?;
     return Ok(web::HttpResponse::Ok().content_type("application/json").body(spec));
   }
-  let serve_path = utoipa_swagger_ui::serve(&tail, openapi_conf.as_ref().clone().into()).map_err(|err| HttpError::InternalError {
-    msg: format!("Error serving Swagger UI: {}", err),
-  })?;
+  let serve_path =
+    utoipa_swagger_ui::serve(&tail, openapi_conf.as_ref().clone().into()).map_err(|err| HttpError::InternalError {
+      msg: format!("Error serving Swagger UI: {}", err),
+    })?;
   match serve_path {
     None => Ok(web::HttpResponse::NotFound().finish()),
     Some(file) => Ok({
@@ -46,7 +31,7 @@ async fn get_swagger(
   }
 }
 
-pub fn ntex_config(config: &mut web::ServiceConfig) {
+pub fn ntex_service() -> Scope<DefaultError, Identity> {
   let swagger_config = Arc::new(utoipa_swagger_ui::Config::new(["/explorer/swagger.json"]).use_base_layout());
-  config.service(web::scope("/explorer/").state(swagger_config).service(get_swagger));
+  web::scope("/explorer/").state(swagger_config).service(get_swagger)
 }

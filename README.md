@@ -14,17 +14,16 @@
 Simple monorepo starter pack using fastest & smallest reasonable framework [(check current data here)](https://www.techempower.com/benchmarks)
 
 # Features
- - simple CRUD API (WIP)
+ - simple CRUD API
  - fully tested (Planned)
- - openapi (WIP)
- - custom error handling (Planned)
+ - openapi
+ - custom error handling
  - multiple log levels (Planned)
- - updated to date
  - ORM & multi db (Planned)
  - user CRUD (Planned)
  - session login with oath id provider (Planned)
  - crud lvl permissions (Planned)
- - github actions
+ - github cicd
 
 ## TOConsider
  - generator for personalization of project ex:
