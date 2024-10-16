@@ -17,6 +17,7 @@ Simple monorepo starter pack using fastest & smallest reasonable framework [(che
  - simple CRUD API (WIP)
  - fully tested (Planned)
  - openapi (WIP)
+ - custom error handling (Planned)
  - multiple log levels (Planned)
  - updated to date (Planned)
  - ORM & multi db (Planned)

@@ -1,15 +1,15 @@
+use ntex::http::Response;
 use ntex::web;
-
+use crate::error::HttpError;
+use crate::models::todo::Todo;
 use crate::models::todo::TodoPartial;
 
-/// List all todos
 #[utoipa::path(
   get,
-  path = "/todos",
+  path = "/todos", 
   responses(
-    (status = 200, description = "List of Todo", body = [Todo]),
-  ),
-)]
+    (status = 200, description = "List of Todo", body = [Todo])
+))]
 #[web::get("/todos")]
 pub async fn get_todos() -> web::HttpResponse {
   web::HttpResponse::Ok().finish()
@@ -25,9 +25,7 @@ pub async fn get_todos() -> web::HttpResponse {
   ),
 )]
 #[web::post("/todos")]
-pub async fn create_todo(
-  _todo: web::types::Json<TodoPartial>,
-) -> web::HttpResponse {
+pub async fn create_todo(_todo: web::types::Json<TodoPartial>) -> web::HttpResponse {
   web::HttpResponse::Created().finish()
 }
 
@@ -37,7 +35,7 @@ pub async fn create_todo(
   path = "/todos/{id}",
   responses(
     (status = 200, description = "Todo found", body = Todo),
-    (status = 404, description = "Todo not found", body = HttpError),
+    (status = 400, description = "Todo not found", body = HttpError),
   ),
 )]
 #[web::get("/todos/{id}")]
@@ -52,12 +50,22 @@ pub async fn get_todo() -> web::HttpResponse {
   request_body = TodoPartial,
   responses(
     (status = 200, description = "Todo updated", body = Todo),
-    (status = 404, description = "Todo not found", body = HttpError),
+    (status = 400, description = "Todo not found", body = HttpError),
   ),
 )]
 #[web::put("/todos/{id}")]
-pub async fn update_todo() -> web::HttpResponse {
-  web::HttpResponse::Ok().finish()
+pub async fn update_todo(path: web::types::Path<u32>) -> Result<Response, HttpError> {
+  let id = path.into_inner();
+  do_thing_that_fails(id).map_err(|_e| HttpError::ValidationError {field: "test error"})?;
+  Ok(web::HttpResponse::Ok().body("OK Reposne"))
+}
+
+fn do_thing_that_fails(operation_successful: u32) -> Result<(), &'static str> {
+  if operation_successful % 2 == 0 {
+    Ok(())
+  } else {
+    Err("Something went wrong")
+  }
 }
 
 /// Delete a todo by id
