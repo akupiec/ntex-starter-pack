@@ -1,6 +1,9 @@
+mod database;
 mod health;
 pub mod model;
 mod openapi;
+
+pub use database::connect;
 
 use crate::todo;
 use ntex::web;

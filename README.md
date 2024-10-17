@@ -14,15 +14,15 @@
 Simple monorepo starter pack using fastest & smallest reasonable framework [(check current data here)](https://www.techempower.com/benchmarks)
 
 # Features
- - simple CRUD API
- - fully tested (Planned)
+ - CRUD API
+ - database CRUD (Planned)
+ - database migrations
+ - multiple database drivers (Planned)
+ - tests (Planned)
  - openapi
  - custom error handling
- - multiple log levels (Planned)
- - ORM & multi db (Planned)
- - user CRUD (Planned)
  - session login with oath id provider (Planned)
- - crud lvl permissions (Planned)
+ - permissions (Planned)
  - github cicd
 
 ## TOConsider
@@ -30,7 +30,11 @@ Simple monorepo starter pack using fastest & smallest reasonable framework [(che
    - removing logging
    - removing openapi
  - implementing nicer wrappers for openAPI
+ - multiple log levels
 
 # Notes
  - openAPI can be accessed by http://localhost:8080/explorer/
+ - for migration creation check [sqlx-cli](https://github.com/launchbadge/sqlx/blob/main/sqlx-cli/README.md)
+   - to install `cargo install sqlx-cli`
+   - to create new script `sqlx migrate add <script_name>`
  - there is no https and there will not be, you will be using proxy anyway :) [ssh proxy tutorial on intranet!](https://www.youtube.com/watch?v=qlcVx-k-02E)
