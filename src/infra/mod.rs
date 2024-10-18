@@ -3,9 +3,9 @@ mod health;
 pub mod model;
 mod openapi;
 
-pub use database::connect;
+pub use database::db_pool;
 
-use crate::todo;
+use crate::user;
 use ntex::web;
 use utoipa::OpenApi;
 
@@ -16,7 +16,7 @@ use utoipa::OpenApi;
     ),
     paths(health::health_check),
     nest(
-      (path = "/todos", api = todo::TodoApi)
+      (path = "/users", api = user::UserApi)
     )
 )]
 struct ApiDoc;

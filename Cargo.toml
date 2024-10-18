@@ -11,7 +11,7 @@ strip = true
 lto = true
 
 [dependencies]
-sqlx = { version = "0.8.2", features = [ "runtime-tokio", "tls-native-tls", "sqlite", "postgres", "migrate"] }
+sqlx = { version = "0.8.2", features = [ "runtime-tokio", "tls-native-tls", "sqlite", "postgres", "migrate", 'macros'] }
 ntex = { version = "2.7.0", features = ["tokio"] }
 serde = { version = "1.0.210", features = ["derive"] }
 utoipa = "5.1.1"

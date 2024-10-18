@@ -15,7 +15,8 @@ Simple monorepo starter pack using fastest & smallest reasonable framework [(che
 
 # Features
  - CRUD API
- - database CRUD (Planned)
+ - database CRUD (//TODO fix docker, migrations need to start BEFORE application!)
+ - ORM + custom query (Planned)
  - database migrations
  - multiple database drivers (Planned)
  - tests (Planned)

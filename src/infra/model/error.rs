@@ -4,9 +4,9 @@ use utoipa::ToSchema;
 
 #[derive(Debug, Display, Error, ToSchema)]
 pub enum HttpError {
-  #[display("Validation error on field: {}", field)]
+  #[display("Validation error: {}", msg)]
   ValidationError {
-    field: &'static str,
+    msg: &'static str,
   },
   InternalError {
     msg: String,

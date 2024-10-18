@@ -1,20 +1,27 @@
-use crate::infra::connect;
+use crate::infra::db_pool;
+use crate::user::user_controller;
 use log::info;
 use ntex::web;
 
+mod common;
 mod infra;
-mod todo;
+mod user;
+
+#[web::get("")]
+pub async fn default() -> web::HttpResponse {
+  web::HttpResponse::NotFound().finish()
+}
 
 #[ntex::main]
 async fn main() -> std::io::Result<()> {
   env_logger::init_from_env(env_logger::Env::default().default_filter_or("info"));
 
   info!("Starting DB & Migrations");
-  let conn = connect().await.expect("Failed to connect to the database");
+  let pool = db_pool().await.expect("Failed to connect to the database");
 
   println!("cargo:rerun-if-changed=migrations");
   sqlx::migrate!("./migrations")
-    .run(&conn)
+    .run(&pool)
     .await
     .expect("Fail to run migrations");
 
@@ -22,9 +29,9 @@ async fn main() -> std::io::Result<()> {
     web::App::new()
       .wrap(web::middleware::Logger::default())
       .configure(infra::infrastructure_config)
-      .state(conn.clone())
-      .configure(todo::ntex_config)
-      .default_service(web::route().to(todo::default))
+      .state(pool.clone())
+      .configure(user_controller)
+      .service(default)
   })
   .bind(("0.0.0.0", 8080))?
   .run()
