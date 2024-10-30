@@ -15,9 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: rustup toolchain install stable --profile minimal
+      - run: |
+          rustup toolchain install stable --profile minimal &&
+          cargo install sqlx-cli
 
       - uses: Swatinem/rust-cache@v2
+
+      - name: Init database
+        run: |
+          sqlx database create &&
+          sqlx migrate run
 
       - name: Build
         run: cargo build --verbose
