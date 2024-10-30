@@ -15,8 +15,7 @@ Simple monorepo starter pack using fastest & smallest reasonable framework [(che
 
 # Features
  - CRUD API
- - database CRUD (//TODO fix docker, migrations need to start BEFORE application!)
- - ORM + custom query (Planned)
+ - database CRUD
  - database migrations
  - multiple database drivers (Planned)
  - tests (Planned)
@@ -27,15 +26,24 @@ Simple monorepo starter pack using fastest & smallest reasonable framework [(che
  - github cicd
 
 ## TOConsider
- - generator for personalization of project ex:
-   - removing logging
-   - removing openapi
  - implementing nicer wrappers for openAPI
  - multiple log levels
+ - ORM + custom query
 
 # Notes
  - openAPI can be accessed by http://localhost:8080/explorer/
- - for migration creation check [sqlx-cli](https://github.com/launchbadge/sqlx/blob/main/sqlx-cli/README.md)
-   - to install `cargo install sqlx-cli`
-   - to create new script `sqlx migrate add <script_name>`
+ - project use [sqlx-cli](https://github.com/launchbadge/sqlx/blob/main/sqlx-cli/README.md)
+   - to create new migration script `sqlx migrate add <script_name>`
  - there is no https and there will not be, you will be using proxy anyway :) [ssh proxy tutorial on intranet!](https://www.youtube.com/watch?v=qlcVx-k-02E)
+
+# Development
+
+install run and trigger migrations by:
+
+```shell
+cargo install sqlx-cli
+cargo database create
+cargo migrate run
+```
+
+
