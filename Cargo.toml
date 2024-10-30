@@ -13,9 +13,9 @@ lto = true
 [dependencies]
 sqlx = { version = "0.8.2", features = [ "runtime-tokio", "tls-native-tls", "sqlite", "postgres", "migrate", 'macros'] }
 ntex = { version = "2.7.0", features = ["tokio"] }
-serde = { version = "1.0.210", features = ["derive"] }
-utoipa = "5.1.1"
-utoipa-swagger-ui = "8.0.1"
+serde = { version = "1.0.214", features = ["derive"] }
+utoipa = "5.1.3"
+utoipa-swagger-ui = "8.0.3"
 env_logger = "0.11.5"
 derive_more = {version =  "1", features = ["error", "display"] }
 log = "0.4.22"
