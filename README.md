@@ -46,4 +46,10 @@ sqlx database create
 sqlx migrate run
 ```
 
+update rust & cargo 
+```shell
+rustup update
+cargo update
+```
+
 
