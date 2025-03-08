@@ -42,8 +42,8 @@ install run and trigger migrations by:
 
 ```shell
 cargo install sqlx-cli
-cargo database create
-cargo migrate run
+sqlx database create
+sqlx migrate run
 ```
 
 
