@@ -1,6 +1,6 @@
 CREATE TABLE User
 (
-  id         INTEGER PRIMARY KEY AUTOINCREMENT,
-  externalId TEXT UNIQUE,
-  role       VARCHAR(50)
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  external_id TEXT UNIQUE,
+  role        VARCHAR(50)
 );

@@ -25,37 +25,37 @@ macro_rules! db_resp {
 }
 
 pub async fn find_all(db: &SqlitePool) -> Result<Vec<User>, HttpError> {
-  db_resp!(query_as!(User, "SELECT * FROM user").fetch_all(db))
+  db_resp!(query_as!(User, "SELECT * FROM User").fetch_all(db))
 }
 
 pub async fn delete(db: &SqlitePool, id: i64) -> Result<(), HttpError> {
-  empty_db_resp!(query!("DELETE FROM user WHERE id = ?", id).execute(db))
+  empty_db_resp!(query!("DELETE FROM User WHERE id = ?", id).execute(db))
 }
 
 pub async fn save(db: &SqlitePool, user: UserUpdate) -> Result<(), HttpError> {
   empty_db_resp!(query!(
-    "INSERT INTO user (externalId, role) VALUES ($1, $2)",
-    user.externalId,
+    "INSERT INTO User (external_id, role) VALUES ($1, $2)",
+    user.external_id,
     user.role
   )
   .execute(db))
 }
 
 pub async fn find(db: &SqlitePool, id: u32) -> Result<User, HttpError> {
-  db_resp!(query_as!(User, "SELECT * FROM user WHERE id = ?", id).fetch_one(db))
+  db_resp!(query_as!(User, "SELECT * FROM User WHERE id = ?", id).fetch_one(db))
 }
 
 pub async fn update(db: &SqlitePool, id: u32, user: UserUpdate) -> Result<(), HttpError> {
-  let not_found = db_resp!(query!("SELECT id FROM user WHERE id = ?", id).fetch_optional(db))?.is_none();
+  let not_found = db_resp!(query!("SELECT id FROM User WHERE id = ?", id).fetch_optional(db))?.is_none();
 
   if not_found {
-    return Err(HttpError::ValidationError { msg: "not found user!" });
+    return Err(HttpError::ValidationError { msg: "not found User!" });
   }
 
   empty_db_resp!(query!(
-    "UPDATE user SET role = ?, externalId = ? WHERE id = ?",
+    "UPDATE User SET role = ?, external_id = ? WHERE id = ?",
     user.role,
-    user.externalId,
+    user.external_id,
     id
   )
   .execute(db))
